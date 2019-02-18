@@ -4,7 +4,10 @@ node {
     stage 'Checkout'
         git url: 'https://github.com/DanGrew/bingo-wall.git'
 
-    dir( 'BingoWall' ) {
+    dir( 'bingo-wall' ) {
+        stage 'Clean'
+            sh "./gradlew clean"
+            
         stage 'Compile Java'
             sh "./gradlew compileJava"
             
