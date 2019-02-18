@@ -18,10 +18,6 @@ node {
             sh "./gradlew test"
             junit 'build/test-results/*.xml'
             
-        stage 'Integration Tests'
-        	sh "./gradlew integrationTests"
-            junit 'build/test-results/*.xml'
-            
         stage 'Publish'
             sh "./gradlew bintrayUpload"
     
