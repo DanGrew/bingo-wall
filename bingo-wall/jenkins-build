@@ -5,9 +5,6 @@ node {
         git url: 'https://github.com/DanGrew/bingo-wall.git'
 
     dir( 'BingoWall' ) {
-        stage 'Clean'
-            sh "./gradlew clean"
-            
         stage 'Compile Java'
             sh "./gradlew compileJava"
             
