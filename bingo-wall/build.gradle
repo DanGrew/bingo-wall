@@ -158,7 +158,7 @@ bintray {
     user = bintrayUser
     key = bintrayKey
     configurations = ['archives']
-    publications = ['core']
+    publications = ['core', 'runnable']
     
     publish = true //auto publish everything
     
