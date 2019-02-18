@@ -2,7 +2,7 @@ env.VERSION_NUMBER = "1.0.${BUILD_NUMBER}"
 
 node {
     stage 'Checkout'
-        git url: 'https://github.com/DanGrew/BingoWall.git'
+        git url: 'https://github.com/DanGrew/bingo-wall.git'
 
     dir( 'BingoWall' ) {
         stage 'Clean'
