@@ -3,7 +3,8 @@ package uk.dangrew.bingowall.main;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import uk.dangrew.bingowall.ui.UiBingoBoard;
+import uk.dangrew.bingowall.model.BingoSettings;
+import uk.dangrew.bingowall.ui.UiBingoPane;
 import uk.dangrew.jupa.javafx.platform.PlatformLifecycle;
 
 /**
@@ -18,7 +19,9 @@ public class BingoWall extends Application {
    @Override public void start(Stage stage) throws Exception {
       stage.setTitle( TITLE );
       stage.setOnCloseRequest( event -> PlatformLifecycle.shutdown() );
-      stage.setScene( new Scene( new UiBingoBoard() ) );
+      
+      BingoSettings settings = new BingoSettings();
+      stage.setScene( new Scene( new UiBingoPane( settings ) ) );
       stage.setMaximized( true );
       stage.show();
    }//End Method

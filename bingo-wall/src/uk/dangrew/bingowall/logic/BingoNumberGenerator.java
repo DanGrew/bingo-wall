@@ -1,57 +1,51 @@
 package uk.dangrew.bingowall.logic;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.security.SecureRandom;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import uk.dangrew.bingowall.model.BingoSettings;
+import uk.dangrew.bingowall.resources.sounds.numbers.Sounds;
 
 public class BingoNumberGenerator {
 
+   private final Sounds sounds;
    private final BingoNumbers numbers;
+   private final BingoSettings settings;
    private final ObjectProperty< Integer > nextCall;
-   private final BooleanProperty paused;
    
-   public BingoNumberGenerator( BingoNumbers numbers ) {
+   public BingoNumberGenerator( BingoSettings settings, BingoNumbers numbers ) {
+      this.settings = settings;
       this.nextCall = new SimpleObjectProperty<>();
       this.numbers = numbers;
-      this.paused = new SimpleBooleanProperty( false );
+      this.sounds = new Sounds();
    }//End Constructor
    
    public ObjectProperty< Integer > nextCall(){
       return nextCall;
    }//End Method
    
-   public void togglePause() {
-      paused.set( !paused.get() );
-   }//End Method
-   
-   public BooleanProperty paused() {
-      return paused;
-   }//End Method
-   
    public void start() {
       new Thread( () -> {
-         Random random = new Random();
+         SecureRandom random = new SecureRandom();
          while ( true ) {
             try {
-               Thread.sleep( 5000 );
+               Thread.sleep( settings.callTime().get().timePeriod() );
             } catch ( InterruptedException e ) {
                e.printStackTrace();
             }
-            if ( paused.get() ) {
+            if ( settings.paused().get() ) {
                continue;
             }
             
             boolean foundNew = false;
             while( !foundNew ) {
-               int number = random.nextInt( 90 ) + 1;
+               int number = random.nextInt( numbers.getBingoNumberCount() ) + 1;
                BooleanProperty state = numbers.numberStateFor( number );
                if ( !state.get() ) {
                   nextCall.set( number );
+                  sounds.playSound( number );
                   state.set( true );
                   foundNew = true;
                }
