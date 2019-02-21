@@ -20,7 +20,7 @@ public class BingoSettingsTest {
    }//End Method
 
    @Test public void shouldProvideDefaults() {
-      assertThat( systemUnderTest.callTime().get(), is( 5000.0 ) );
+      assertThat( systemUnderTest.callTime().get(), is( BingoSpeed.FiveSeconds ) );
       assertThat( systemUnderTest.paused().get(), is( true ) );
    }//End Method
 
